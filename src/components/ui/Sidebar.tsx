@@ -21,8 +21,6 @@ async function Sidebar() {
   return (
     <div className="sticky top-20">
       <Card>
-        {/* {user.email.split("@")[0]} */}
-        {usernameOrEmail}
         <CardContent className="pt-6">
           <div className="flex flex-col items-center text-center">
             {/* Correct Link Wrap */}

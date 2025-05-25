@@ -106,7 +106,7 @@ export async function getRandomUsers() {
           },
         },
       },
-      take: 3,
+      take: 15,
     });
 
     return randomUsers;

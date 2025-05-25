@@ -15,6 +15,7 @@ import { useState } from "react";
 import { useAuth, SignInButton, SignOutButton } from "@clerk/nextjs";
 import { useTheme } from "next-themes";
 import Link from "next/link";
+import {Users} from "lucide-react";
 
 type SafeUser = {
   id: string;
@@ -65,6 +66,12 @@ function MobileNavbar({ user }: { user: SafeUser | null }) {
 
             {isSignedIn ? (
               <>
+                <Button variant="ghost" className="flex items-center gap-3 justify-start" asChild>
+            <Link href="/people">
+              <Users className="w-4 h-4" />
+              People
+            </Link>
+          </Button>
                 <Button variant="ghost" className="flex items-center gap-3 justify-start" asChild>
                   <Link href="/notifications">
                     <BellIcon className="w-4 h-4" />
