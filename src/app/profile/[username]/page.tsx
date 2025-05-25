@@ -7,14 +7,8 @@ import {
 import { notFound } from "next/navigation";
 import ProfilePageClient from "./ProfilePageClient";
 
-// Define the Params type as Promise-like, to match Next.js 15's expectations
-type Params = Promise<{ username: string }>;
-
-export async function generateMetadata({ params }: { params: Params }) {
-  // Await the params before using
-  const resolvedParams = await params;
-
-  const user = await getProfileByUsername(resolvedParams.username);
+export async function generateMetadata({ params }: { params: { username: string } }) {
+  const user = await getProfileByUsername(params.username);
   if (!user) return;
 
   return {
@@ -23,11 +17,8 @@ export async function generateMetadata({ params }: { params: Params }) {
   };
 }
 
-async function ProfilePageServer({ params }: { params: Params }) {
-  // Await the params before using
-  const resolvedParams = await params;
-
-  const user = await getProfileByUsername(resolvedParams.username);
+async function ProfilePageServer({ params }: { params: { username: string } }) {
+  const user = await getProfileByUsername(params.username);
 
   if (!user) notFound();
 
@@ -46,5 +37,4 @@ async function ProfilePageServer({ params }: { params: Params }) {
     />
   );
 }
-
 export default ProfilePageServer;

@@ -8,6 +8,18 @@ import { syncUser } from "@/actions/user.action";
 async function Navbar() {
 
     const user = await currentUser();
+    
+    const safeUser = user
+    ? {
+        id: user.id,
+        username: user.username,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        imageUrl: user.imageUrl,
+        email: user.emailAddresses?.[0]?.emailAddress,
+        // add more fields you need for the client
+      }
+    : null;
 
     if(user) await syncUser();
 
@@ -23,7 +35,7 @@ async function Navbar() {
           </div>
 
           <DesktopNavbar />
-          <MobileNavbar />
+          <MobileNavbar user={safeUser}/>
         </div>
       </div>
     </nav>

@@ -16,10 +16,21 @@ import { useAuth, SignInButton, SignOutButton } from "@clerk/nextjs";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 
-function MobileNavbar() {
+type SafeUser = {
+  id: string;
+  username?: string | null;
+  firstName?: string | null;
+  lastName?: string | null;
+  imageUrl?: string | null;
+  email?: string | null;
+};
+
+function MobileNavbar({ user }: { user: SafeUser | null }) {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const { isSignedIn } = useAuth();
   const { theme, setTheme } = useTheme();
+
+  // const user = await currentUser();
 
   return (
     <div className="flex md:hidden items-center space-x-2">
@@ -61,7 +72,11 @@ function MobileNavbar() {
                   </Link>
                 </Button>
                 <Button variant="ghost" className="flex items-center gap-3 justify-start" asChild>
-                  <Link href="/profile">
+                  <Link
+              href={`/profile/${
+                user?.username ?? user?.email?.split("@")[0] ?? "user"
+              }`}
+            >
                     <UserIcon className="w-4 h-4" />
                     Profile
                   </Link>
